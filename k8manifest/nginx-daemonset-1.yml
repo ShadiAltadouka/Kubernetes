@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nginx-daemonset
+  namespace: web
+  labels:
+    function: daemonset
+spec:
+  selector:
+    matchLabels:
+      daemon: nginx
+  template:
+    metadata:
+      labels:
+        daemon: nginx 
+    spec:
+      nodeSelector:
+        test: passed
+      containers:
+      - name: nginx-container
+        image: nginx:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 80

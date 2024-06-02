@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: web
+  labels:
+    type: deployment
+spec:
+  replicas: 2 # NUMBER OF PODS TO RUN
+  selector: # MANAGE SELECTED PODS
+    matchLabels:
+      app: nginx
+  template: # POD TEMPLATE
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 80

@@ -195,9 +195,9 @@ resource "aws_eks_node_group" "tf-eks-node-group" {
     aws_subnet.tf-subnet2.id
   ]
   scaling_config {
-    desired_size = 2
+    desired_size = 3
     min_size     = 1
-    max_size     = 2
+    max_size     = 3
   }
 
   depends_on = [
