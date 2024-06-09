@@ -1,12 +1,12 @@
 // LAUNCH TEMPLATE
-resource "aws_launch_template" "lt-1" {
-  name          = "launch_template-1"
-  vpc_security_group_ids = [aws_security_group.tf-sg1.id]
+# resource "aws_launch_template" "lt-1" {
+#   name          = "launch_template-1"
+#   vpc_security_group_ids = [aws_security_group.tf-sg1.id]
 
-  depends_on = [
-    aws_security_group.tf-sg1
-  ]
-}
+#   depends_on = [
+#     aws_security_group.tf-sg1
+#   ]
+# }
 
 // SECURITY GROUP
 resource "aws_security_group" "tf-sg1" {

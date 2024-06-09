@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: httpd
+  template:
+    metadata:
+      labels:
+        app: httpd
+    spec:
+      containers:
+      - image: httpd:latest
+        name: httpd
+        ports:
+        - containerPort: 80
+        resources:
+          requests: #requests how much the pod needs
+            cpu: 100m
+            memory: 400Mi
+          limits: #dont go past this limit or else it will crash 
+            cpu: 200m
+            memory: 800Mi
+        livenessProbe:
+          exec:
+            command:
+              - /usr/bin/ls
+              - /usr/local/apache2/htdocs
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        readinessProbe:
+          exec:
+            command:
+              - touch
+              - /tmp/readiness
+          initialDelaySeconds: 15
+          periodSeconds: 10
