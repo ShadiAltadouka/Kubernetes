@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: mysql-db
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      nodeSelector:
+        topology.kubernetes.io/zone: us-east-1b
+      containers:
+      - image: mysql:latest
+        name: mysql
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: mysql-storage
+        resources:
+          requests:
+            cpu: 100m
+            memory: 400Mi
+          limits:
+            cpu: 200m
+            memory: 800Mi
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "password123"
+      volumes:
+      - name: mysql-storage
+        persistentVolumeClaim:
+          claimName: mysql-pvc
+      - name: mysql-storage-2
+        persistentVolumeClaim:
+          claimName: mysql-pvc-2
+      # - name: mysql-storage-3
+      #   persistentVolumeClaim:
+      #     claimName: mysql-pvc-3

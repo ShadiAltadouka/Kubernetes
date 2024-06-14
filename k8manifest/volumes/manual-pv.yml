@@ -4,12 +4,11 @@ metadata:
   name: web-pv
 spec:
   capacity:
-    storage: 8Gi
-  volumeMode: Filesystem
+    storage: 5Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: manual
   awsElasticBlockStore:
-    volumeID: vol-0763034b972ee280c
+    volumeID: vol-0fce021f67483e6db
     fsType: xfs

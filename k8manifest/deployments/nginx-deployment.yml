@@ -15,12 +15,21 @@ spec:
       labels:
         app: nginx
     spec:
+      nodeSelector:
+        az: 1a
       containers:
       - name: nginx-container
         image: nginx:latest
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "250m"
+        # resources:
+        #   limits:
+        #     memory: "128Mi"
+        #     cpu: "250m"
         ports:
         - containerPort: 80
+        volumeMounts:
+          - name: nginx-volume
+            mountPath: /usr/share/nginx/html
+      volumes:
+        - name: nginx-volume
+          persistentVolumeClaim:
+            claimName: sc-pvc
